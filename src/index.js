@@ -89,7 +89,7 @@ module.exports = function connectMongo(connect) {
                 } else {
                     options.mongooseConnection.once('open', () => this.handleNewConnectionAsync(options.mongooseConnection.db));
                 }
-            } else if (options.db && options.db.listCollections) {
+            } else if (options.db && (options.db.listCollections || options.db._path)) {
                 // Re-use existing or upcoming native connection
                 if (options.db.openCalled || options.db.openCalled === undefined) { // openCalled is undefined in mongodb@2.x
                     this.handleNewConnectionAsync(options.db);
